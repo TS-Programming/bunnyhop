@@ -1,30 +1,30 @@
 class_name FpMovement
 extends Node
 
-export(float) var gravity: float = 10.0
-export(float) var gravity_modifier = 1.0
-export(float) var speed_ground_max: float = 8.0
+@export var gravity: float = 10.0
+@export var gravity_modifier: float = 1.0
+@export var speed_ground_max: float = 8.0
 var speed_ground_max_modifier: float = 1.0
-export(float) var speed_air_max: float = 8.0
+@export var speed_air_max: float = 8.0
 var speed_air_max_modifier: float = 1.0
-export(float) var speed_jump: float = 4.2
+@export var speed_jump: float = 4.2
 var speed_jump_modifier: float = 1.0
 
-export(float) var accel_ground_max: float = 140.0
+@export var accel_ground_max: float = 140.0
 var accel_ground_max_modifier: float = 1.0
-export(float) var accel_air_max: float = 70.0
+@export var accel_air_max: float = 70.0
 var accel_air_max_modifier: float = 1.0
 
-export(float) var friction_ground: float = 12.0
+@export var friction_ground: float = 12.0
 var friction_ground_modifier: float = 1.0
-export(float) var friction_air: float = 0.1
+@export var friction_air: float = 0.1
 var friction_air_modifier: float = 1.0
 
-export(float, 0.0, 90.0) var floor_angle := 40.0
-export(float) var snap_to_floor: float = 0.1
+@export var floor_angle := 40.0 # (float, 0.0, 90.0)
+@export var snap_to_floor: float = 0.1
 var snap_to_floor_modifier: float = 1.0
 
-export(float) var step_distance: float = 3.0
+@export var step_distance: float = 3.0
 
 var time: float = 0.0
 
@@ -40,7 +40,7 @@ var contact_points: Array
 
 var top_speed: float = 0.0
 
-func get_speed() -> float:
+func get_velocity() -> float:
 	return velocity.length()
 
 func get_hspeed() -> float:
@@ -54,14 +54,14 @@ func accelerate(_velocity: Vector3, speed_max: float, accel_max: float, delta: f
 	#print(_velocity.length())
 	projection = _velocity.dot(move_direction)
 	velocity_move_direction_angle = _velocity.angle_to(move_direction)
-	var add_speed := clamp(speed_max - projection, 0.0, accel_max * delta)
+	var add_speed : float = clamp(speed_max - projection, 0.0, accel_max * delta)
 	_velocity += add_speed * move_direction
 	return _velocity
 
 func friction(_velocity: Vector3, friction: float, _speed_stop: float, delta: float) -> Vector3:
 	var speed := _velocity.length()
 	if speed != 0.0:
-		var control := max(_speed_stop, speed)
+		var control : float = max(_speed_stop, speed)
 		var drop := control * friction * delta
 		#print(drop)
 		_velocity *= max(speed - drop, 0.0) / speed
@@ -86,10 +86,25 @@ func movement_floor(player: FpPlayer, delta: float) -> void:
 	if fp_input.queue_jump:
 		vvel.y = speed_jump_modifier * speed_jump
 		velocity = hvel + vvel
-		velocity = player.move_and_slide(velocity, Vector3.UP, true, 4, deg2rad(floor_angle), false)
+		player.set_velocity(velocity)
+		player.set_up_direction(Vector3.UP)
+		player.set_floor_stop_on_slope_enabled(true)
+		player.set_max_slides(4)
+		player.set_floor_max_angle(deg_to_rad(floor_angle))
+		# TODOConverter3To4 infinite_inertia were removed in Godot 4 - previous value `false`
+		player.move_and_slide()
+		velocity = player.velocity
 	else:
 		velocity = hvel + vvel
-		velocity = player.move_and_slide_with_snap(velocity, -floor_normal * snap_to_floor * snap_to_floor_modifier, Vector3.UP, true, 4, deg2rad(floor_angle), false)
+		player.set_velocity(velocity)
+		# TODOConverter3To4 looks that snap in Godot 4 is float, not vector like in Godot 3 - previous value `-floor_normal * snap_to_floor * snap_to_floor_modifier`
+		player.set_up_direction(Vector3.UP)
+		player.set_floor_stop_on_slope_enabled(true)
+		player.set_max_slides(4)
+		player.set_floor_max_angle(deg_to_rad(floor_angle))
+		# TODOConverter3To4 infinite_inertia were removed in Godot 4 - previous value `false`
+		player.move_and_slide()
+		velocity = player.velocity
 
 func movement_air(player: FpPlayer, delta: float) -> void:
 	#var fp_input: FpInput = player.fp_input
@@ -103,7 +118,14 @@ func movement_air(player: FpPlayer, delta: float) -> void:
 	
 	velocity = hvel + vvel
 	velocity += Vector3.DOWN * gravity * gravity_modifier * delta
-	velocity = player.move_and_slide(velocity, Vector3.UP, true, 4, deg2rad(floor_angle), false)
+	player.set_velocity(velocity)
+	player.set_up_direction(Vector3.UP)
+	player.set_floor_stop_on_slope_enabled(true)
+	player.set_max_slides(4)
+	player.set_floor_max_angle(deg_to_rad(floor_angle))
+	# TODOConverter3To4 infinite_inertia were removed in Godot 4 - previous value `false`
+	player.move_and_slide()
+	velocity = player.velocity
 
 func update_movement(player: FpPlayer, delta: float) -> void:
 	#print(velocity.length())
@@ -125,16 +147,16 @@ func update_movement(player: FpPlayer, delta: float) -> void:
 	#print(velocity.length())
 	contact_normals = []
 	contact_points = []
-	for idx in player.get_slide_count():
+	for idx in player.get_slide_collision_count():
 		var coll := player.get_slide_collision(idx)
-		var n := coll.normal
-		var p := coll.position
+		var n : Vector3 = coll.get_normal()
+		var p : Vector3 = coll.get_position()
 		contact_normals.append(n)
 		contact_points.append(p)
-		if coll.collider is RigidBody:
-			var obj: RigidBody = coll.collider
+		if coll.get_collider() is RigidBody3D:
+			var obj: RigidBody3D = coll.collider
 			var imp: Vector3 = -n * 1.0
 			obj.set_sleeping(false)
-			obj.apply_impulse(p - obj.global_transform.origin, imp)
+			obj.apply_impulse(imp, p - obj.global_transform.origin)
 		
 	

@@ -1,19 +1,19 @@
 class_name FpCamera
-extends Position3D
+extends Marker3D
 
 const MOUSE_SENSITIVITY_FACTOR := 0.001
 
-onready var camera := $H/V/Camera
+@onready var camera := $H/V/Camera3D
 
-onready var fp_player: FpPlayer = get_parent()
+@onready var fp_player: FpPlayer = get_parent()
 # transforms to interpolate the fp_camera
-onready var initial_camera_xform: Transform = transform
-onready var old_xform: Transform
-onready var current_xform: Transform
+@onready var initial_camera_xform: Transform3D = transform
+@onready var old_xform: Transform3D
+@onready var current_xform: Transform3D
 
-onready var mouse_horizontal_sensitivity: float = 1.0
+@onready var mouse_horizontal_sensitivity: float = 1.0
 var mouse_horizontal_sensitivity_modifier: float = 1.0
-onready var mouse_vertical_sensitivity: float = 1.0
+@onready var mouse_vertical_sensitivity: float = 1.0
 var mouse_vertical_sensitivity_modifier: float = 1.0
 
 # use whenever teleporting the scene, to not interpolate
@@ -34,7 +34,7 @@ func get_local_hbasis() -> Basis:
 	return $H.transform.basis
 
 # get the basis of V node or Camera
-func get_basis() -> Basis:
+func get_camera_basis() -> Basis:
 	return $H/V.global_transform.basis
 
 # get the basis of V node or Camera

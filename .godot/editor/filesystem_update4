@@ -1,0 +1,6 @@
+res://default_env.tres
+res://Src/Maps/Main2.tscn
+res://Src/DefualtTheme.tres
+res://Src/Maps/Main.tscn
+res://Src/Entities/FpPlayer/FpPlayer.tscn
+res://Src/Entities/FpPlayer/FpMovement.gd

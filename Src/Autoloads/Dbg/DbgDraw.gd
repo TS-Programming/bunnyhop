@@ -1,4 +1,4 @@
-extends ImmediateGeometry
+extends MeshInstance3D
 
 var lines := []
 var arrows := []
@@ -26,77 +26,80 @@ func _draw_all_lines() -> void:
 		var along: Vector3 = line.to - line.from
 		var perp = along.cross(Vector3.UP).normalized()
 		var norm = perp.cross(along).normalized()
-		begin(Mesh.PRIMITIVE_TRIANGLE_STRIP)
 		
-		set_color(line.color)
-		set_normal(norm)
-		add_vertex(line.from + perp * line.width * 0.5)
+		mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
 		
-		set_color(line.color)
-		set_normal(norm)
-		add_vertex(line.from - perp * line.width * 0.5)
+		mesh.surface_set_normal(norm)
+		mesh.surface_set_color(line.color)
+		mesh.surface_add_vertex(line.from + perp * line.width * 0.5)
 		
-		set_color(line.color)
-		set_normal(norm)
-		add_vertex(line.to + perp * line.width * 0.5)
+		mesh.surface_set_color(line.color)
+		mesh.surface_set_normal(norm)
+		mesh.surface_add_vertex(line.from - perp * line.width * 0.5)
 		
-		set_color(line.color)
-		set_normal(norm)
-		add_vertex(line.to - perp * line.width * 0.5)
+		mesh.surface_set_color(line.color)
+		mesh.surface_set_normal(norm)
+		mesh.surface_add_vertex(line.to + perp * line.width * 0.5)
 		
-		end()
-	lines = []
+		mesh.surface_set_color(line.color)
+		mesh.surface_set_normal(norm)
+		mesh.surface_add_vertex(line.to - perp * line.width * 0.5)
+		
+		mesh.surface_end()
+	lines.clear()
 
 func _draw_all_arrows() -> void:
 	for arrow in arrows:
 		var along: Vector3 = arrow.to - arrow.from
 		var perp = along.cross(Vector3.UP).normalized()
 		var norm = perp.cross(along).normalized()
-		begin(Mesh.PRIMITIVE_TRIANGLES)
+		mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
 		
 		# base of arrow
-		set_color(arrow.color)
-		set_normal(norm)
-		add_vertex(arrow.from + perp * arrow.width * 0.5)
+		mesh.surface_set_color(arrow.color)
+		mesh.surface_set_normal(norm)
+		mesh.surface_add_vertex(arrow.from + perp * arrow.width * 0.5)
 		
-		set_color(arrow.color)
-		set_normal(norm)
-		add_vertex(arrow.from - perp * arrow.width * 0.5)
+		mesh.surface_set_color(arrow.color)
+		mesh.surface_set_normal(norm)
+		mesh.surface_add_vertex(arrow.from - perp * arrow.width * 0.5)
 		
-		set_color(arrow.color)
-		set_normal(norm)
-		add_vertex(arrow.to + perp * arrow.width * 0.5)
+		mesh.surface_set_color(arrow.color)
+		mesh.surface_set_normal(norm)
+		mesh.surface_add_vertex(arrow.to + perp * arrow.width * 0.5)
 		
-		set_color(arrow.color)
-		set_normal(norm)
-		add_vertex(arrow.from - perp * arrow.width * 0.5)
+		mesh.surface_set_color(arrow.color)
+		mesh.surface_set_normal(norm)
+		mesh.surface_add_vertex(arrow.from - perp * arrow.width * 0.5)
 		
-		set_color(arrow.color)
-		set_normal(norm)
-		add_vertex(arrow.to - perp * arrow.width * 0.5)
+		mesh.surface_set_color(arrow.color)
+		mesh.surface_set_normal(norm)
+		mesh.surface_add_vertex(arrow.to - perp * arrow.width * 0.5)
 		
-		set_color(arrow.color)
-		set_normal(norm)
-		add_vertex(arrow.to + perp * arrow.width * 0.5)
+		mesh.surface_set_color(arrow.color)
+		mesh.surface_set_normal(norm)
+		mesh.surface_add_vertex(arrow.to + perp * arrow.width * 0.5)
 		
 		# tip of arrow
-		set_color(arrow.color)
-		set_normal(norm)
-		add_vertex(arrow.to + perp * arrow.width * 1.5)
+		mesh.surface_set_color(arrow.color)
+		mesh.surface_set_color(arrow.color)
+		mesh.surface_set_color(arrow.color)
+		mesh.surface_set_normal(norm)
+		mesh.surface_add_vertex(arrow.to + perp * arrow.width * 1.5)
 		
-		set_color(arrow.color)
-		set_normal(norm)
-		add_vertex(arrow.to - perp * arrow.width * 1.5)
+		mesh.surface_set_color(arrow.color)
+		mesh.surface_set_normal(norm)
+		mesh.surface_add_vertex(arrow.to - perp * arrow.width * 1.5)
 		
-		set_color(arrow.color)
-		set_normal(norm)
-		add_vertex(arrow.to + along.normalized() * arrow.width * 1.5)
+		mesh.surface_set_color(arrow.color)
+		mesh.surface_set_normal(norm)
+		mesh.surface_add_vertex(arrow.to + along.normalized() * arrow.width * 1.5)
 		
-		end()
+		mesh.surface_end()
 	arrows = []
 
 func _process(_delta: float) -> void:
-	clear()
+	mesh.clear_surfaces()
 	_draw_all_lines()
 	_draw_all_arrows()
 	
