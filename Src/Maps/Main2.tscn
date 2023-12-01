@@ -1,10 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjaeag17ipffj"]
+[gd_scene load_steps=7 format=3 uid="uid://cjaeag17ipffj"]
 
 [ext_resource type="PackedScene" uid="uid://q5ylft7s4bca" path="res://Src/Entities/FpPlayer/FpPlayer.tscn" id="1_coe16"]
+[ext_resource type="Texture2D" uid="uid://cpbcc0ggutth5" path="res://Assets/Textures/Name_1m x 1m.png" id="1_k6ncu"]
 
 [sub_resource type="Environment" id="Environment_uvlfg"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xm06e"]
+albedo_texture = ExtResource("1_k6ncu")
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_u3fv8"]
+material = SubResource("StandardMaterial3D_xm06e")
 size = Vector2(100, 100)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xr540"]
