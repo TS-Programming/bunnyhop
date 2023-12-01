@@ -1,6 +1,12 @@
 res://default_env.tres
-res://Src/Maps/Main2.tscn
+res://Src/Autoloads/PauseMenu/MainMenu.tscn
 res://Src/DefualtTheme.tres
+res://Src/Autoloads/PauseMenu/ThemeTemporary.tres
+res://Src/Autoloads/PauseMenu/MainMenu.gd
+res://Src/Autoloads/PauseMenu/PauseMenu.gd
 res://Src/Maps/Main.tscn
+res://Src/Maps/Main2.tscn
 res://Src/Entities/FpPlayer/FpPlayer.tscn
-res://Src/Entities/FpPlayer/FpMovement.gd
+res://Src/Autoloads/PauseMenu/PauseMenu.tscn
+res://Src/Autoloads/PauseMenu/Blur.gd
+res://Src/Autoloads/HideMouse.gd

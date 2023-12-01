@@ -19,6 +19,7 @@ config/icon="res://icon.png"
 
 DbgDraw="*res://Src/Autoloads/Dbg/DbgDraw.tscn"
 PlayerMovementSettings="*res://Src/Autoloads/PlayerMovementSettings.gd"
+HideMouse="*res://Src/Autoloads/HideMouse.gd"
 
 [display]
 
