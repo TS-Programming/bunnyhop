@@ -10,3 +10,4 @@ res://Src/Entities/FpPlayer/FpPlayer.tscn
 res://Src/Autoloads/PauseMenu/PauseMenu.tscn
 res://Src/Autoloads/PauseMenu/Blur.gd
 res://Src/Autoloads/HideMouse.gd
+res://Src/Entities/FpPlayer/FpCamera/FpCamera.tscn
