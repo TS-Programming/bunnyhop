@@ -1,13 +1,13 @@
 extends VBoxContainer
 
-export(Color) var default_color = Color(1, 1, 1, 0.588235)
-export(Color) var pressed_color = Color(1, 0, 0, 0.784314)
+@export var default_color: Color = Color(1, 1, 1, 0.588235)
+@export var pressed_color: Color = Color(1, 0, 0, 0.784314)
 
-onready var w_key := $top/W
-onready var a_key := $bottom/A
-onready var s_key := $bottom/S
-onready var d_key := $bottom/D
-onready var space_key := $bottom/Space
+@onready var w_key := $top/W
+@onready var a_key := $bottom/A
+@onready var s_key := $bottom/S
+@onready var d_key := $bottom/D
+@onready var space_key := $bottom/Space
 
 func _physics_process(_delta: float) -> void:
 	if Input.get_action_strength("move_front") > 0:

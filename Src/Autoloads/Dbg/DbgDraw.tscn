@@ -1,11 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://cov547pj157oh"]
 
-[ext_resource path="res://Src/Autoloads/Dbg/DbgDraw.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://Src/Autoloads/Dbg/DbgDraw.gd" id="1"]
 
-[sub_resource type="SpatialMaterial" id=1]
-flags_transparent = true
-vertex_color_use_as_albedo = true
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_wt4gn"]
 
-[node name="DbgDraw" type="ImmediateGeometry"]
-material_override = SubResource( 1 )
-script = ExtResource( 1 )
+[node name="MeshInstance3D" type="MeshInstance3D"]
+mesh = SubResource("ImmediateMesh_wt4gn")
+script = ExtResource("1")

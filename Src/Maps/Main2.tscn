@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjaeag17ipffj"]
+
+[ext_resource type="PackedScene" uid="uid://q5ylft7s4bca" path="res://Src/Entities/FpPlayer/FpPlayer.tscn" id="1_coe16"]
+[ext_resource type="Texture2D" uid="uid://cpbcc0ggutth5" path="res://Assets/Textures/Name_1m x 1m.png" id="1_k6ncu"]
+
+[sub_resource type="Environment" id="Environment_uvlfg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xm06e"]
+albedo_texture = ExtResource("1_k6ncu")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u3fv8"]
+material = SubResource("StandardMaterial3D_xm06e")
+size = Vector2(100, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xr540"]
+data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
+
+[node name="Main2" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uvlfg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.9407e-08, 0)
+mesh = SubResource("PlaneMesh_u3fv8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_xr540")
+
+[node name="FpPlayer" parent="." instance=ExtResource("1_coe16")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0657754, -0.471224, 0)
