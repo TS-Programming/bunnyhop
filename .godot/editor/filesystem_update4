@@ -11,3 +11,6 @@ res://Src/Autoloads/PauseMenu/PauseMenu.tscn
 res://Src/Autoloads/PauseMenu/Blur.gd
 res://Src/Autoloads/HideMouse.gd
 res://Src/Entities/FpPlayer/FpCamera/FpCamera.tscn
+res://Src/Entities/FpPlayer/FpHud/FpHud.tscn
+res://Src/Entities/FpPlayer/FpMovement.gd
+res://Src/Entities/FpPlayer/FpInput.gd

@@ -126,19 +126,63 @@ func movement_air(player: FpPlayer, delta: float) -> void:
 	# TODOConverter3To4 infinite_inertia were removed in Godot 4 - previous value `false`
 	player.move_and_slide()
 	velocity = player.velocity
+	
+var dash_speed: float = 20.0  # Adjust the dash speed as needed
+var dash_duration: float = 0.25  # Duration of the dash in seconds
+var dash_elapsed: float = 0.0  # Time elapsed since the dash started
+var dashing: bool = false  # Flag to indicate if a dash is currently happening
+var dash_vector: Vector3 = Vector3.ZERO
+
+func initiate_dash(player: FpPlayer, move_direction: Vector3) -> void:
+	if move_direction.length() < 0.1:
+		var fp_cam_hbasis: Basis = player.fp_camera.get_hbasis()
+		move_direction = -fp_cam_hbasis.z
+		move_direction = move_direction.normalized()
+
+	velocity = Vector3.ZERO
+	player.set_velocity(velocity)
+	dash_vector = move_direction * dash_speed
+	dash_elapsed = 0.0
+	dashing = true
+
+func process_dash(player: FpPlayer, delta: float) -> void:
+	if dashing:
+		dash_elapsed += delta
+		if dash_elapsed < dash_duration:
+			# Apply a portion of the dash velocity
+			velocity = dash_vector
+			player.set_velocity(velocity)
+			player.move_and_slide()
+		else:
+			# Dash has completed
+			dashing = false
+
+
+func log_stuff(player: FpPlayer):
+	var fp_cam_hbasis: Basis = player.fp_camera.get_hbasis()
+	move_direction = fp_cam_hbasis.x + fp_cam_hbasis.z 
+	print(move_direction.normalized())
+	
 
 func update_movement(player: FpPlayer, delta: float) -> void:
 	#print(velocity.length())
 	time += delta
+	
 	var fp_cam_hbasis: Basis = player.fp_camera.get_hbasis()
 	var fp_input: FpInput = player.fp_input
 	move_direction = fp_cam_hbasis.x * fp_input.input_move.x + fp_cam_hbasis.z * fp_input.input_move.z
 	move_direction = move_direction.normalized()
 	
-	if player.is_on_floor():
+	if fp_input.queue_dash:
+		initiate_dash( player, move_direction)
+		process_dash(player, delta)
+	else: if dashing:
+		process_dash(player, delta)
+	else: if player.is_on_floor():
 		movement_floor(player, delta)
 	else:
 		movement_air(player, delta)
+		
 	
 	var speed: float = velocity.length()
 	if speed > top_speed:
