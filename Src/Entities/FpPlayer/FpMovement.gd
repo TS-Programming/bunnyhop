@@ -77,7 +77,7 @@ func movement_floor(player: FpPlayer, delta: float) -> void:
 	# set velocity perpendicular to ground as 0
 	vel_perp_ground = Vector3.ZERO
 	velocity = vel_along_ground + vel_perp_ground
-	
+
 	# accelaerate along horizontal
 	var vvel := velocity.project(Vector3.UP)
 	var hvel := velocity - vvel
@@ -105,8 +105,51 @@ func movement_floor(player: FpPlayer, delta: float) -> void:
 		# TODOConverter3To4 infinite_inertia were removed in Godot 4 - previous value `false`
 		player.move_and_slide()
 		velocity = player.velocity
+		
+		
+func movement_float(player: FpPlayer, delta: float) -> void:
+	var fp_input: FpInput = player.fp_input
+
+	# Horizontal movement: Apply friction and acceleration
+	# Since there's no ground, use the entire velocity vector for friction
+	var hvel := friction(velocity, friction_ground_modifier * friction_ground, 1.5, delta)
+
+	# Apply acceleration based on input, similar to movement_floor
+	hvel = accelerate(hvel, speed_ground_max_modifier * speed_ground_max, accel_ground_max_modifier * accel_ground_max, delta)
+
+	var vvel := Vector3.ZERO  # Zero vertical velocity
+	
+	if fp_input.queue_jump:
+		vvel.y = speed_jump_modifier * speed_jump
+		velocity = hvel + vvel
+		player.set_velocity(velocity)
+		player.set_up_direction(Vector3.UP)
+		player.set_floor_stop_on_slope_enabled(true)
+		player.set_max_slides(4)
+		player.set_floor_max_angle(deg_to_rad(floor_angle))
+		float_elapsed = -1.0
+
+	# Combine horizontal and zero vertical velocities
+	velocity = hvel + vvel
+
+	# Apply the velocity to the player
+	player.set_velocity(velocity)
+	player.move_and_slide()
+	velocity = player.velocity
+	
+	
+	float_elapsed -= delta
+	print(float_elapsed)
+	if float_elapsed < 0 || !player.fp_input.action_float_pressed:
+		floating = false;
+
 
 func movement_air(player: FpPlayer, delta: float) -> void:
+	if player.fp_input.action_float_pressed && float_elapsed > 0:
+		floating = true
+		movement_float(player, delta)
+		return
+	
 	#var fp_input: FpInput = player.fp_input
 	var vvel := velocity.project(Vector3.UP)
 	var hvel := velocity - vvel
@@ -132,15 +175,18 @@ var dash_duration: float = 0.25  # Duration of the dash in seconds
 var dash_elapsed: float = 0.0  # Time elapsed since the dash started
 var dashing: bool = false  # Flag to indicate if a dash is currently happening
 var dash_vector: Vector3 = Vector3.ZERO
+var floating: bool = false
+var float_duration: float = 1.0  # Duration of the dash in seconds
+var float_elapsed: float = 1.0  # Time elapsed since the dash started
 
-func initiate_dash(player: FpPlayer, move_direction: Vector3) -> void:
-	if move_direction.length() < 0.1:
-		var fp_cam_hbasis: Basis = player.fp_camera.get_hbasis()
-		move_direction = -fp_cam_hbasis.z
-		move_direction = move_direction.normalized()
-
+func initiate_dash(player: FpPlayer) -> void:
+	var fp_cam_basis: Basis = player.fp_camera.get_camera_basis()
+	var move_direction = -fp_cam_basis.z.normalized()
+	#print(move_direction)
+	
 	velocity = Vector3.ZERO
 	player.set_velocity(velocity)
+	
 	dash_vector = move_direction * dash_speed
 	dash_elapsed = 0.0
 	dashing = true
@@ -155,14 +201,9 @@ func process_dash(player: FpPlayer, delta: float) -> void:
 			player.move_and_slide()
 		else:
 			# Dash has completed
+			velocity = Vector3.ZERO
+			player.set_velocity(velocity)
 			dashing = false
-
-
-func log_stuff(player: FpPlayer):
-	var fp_cam_hbasis: Basis = player.fp_camera.get_hbasis()
-	move_direction = fp_cam_hbasis.x + fp_cam_hbasis.z 
-	print(move_direction.normalized())
-	
 
 func update_movement(player: FpPlayer, delta: float) -> void:
 	#print(velocity.length())
@@ -174,12 +215,15 @@ func update_movement(player: FpPlayer, delta: float) -> void:
 	move_direction = move_direction.normalized()
 	
 	if fp_input.queue_dash:
-		initiate_dash( player, move_direction)
+		initiate_dash(player)
 		process_dash(player, delta)
 	else: if dashing:
 		process_dash(player, delta)
 	else: if player.is_on_floor():
+		float_elapsed = 1.0
 		movement_floor(player, delta)
+	else: if floating:
+		movement_float(player, delta)
 	else:
 		movement_air(player, delta)
 		
@@ -202,5 +246,3 @@ func update_movement(player: FpPlayer, delta: float) -> void:
 			var imp: Vector3 = -n * 1.0
 			obj.set_sleeping(false)
 			obj.apply_impulse(imp, p - obj.global_transform.origin)
-		
-	

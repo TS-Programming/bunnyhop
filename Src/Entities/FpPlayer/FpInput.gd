@@ -16,6 +16,10 @@ var fire_secondary_just_pressed: bool
 var fire_secondary_pressed: bool
 var fire_secondary_just_released: bool
 
+var action_float_just_pressed: bool
+var action_float_pressed: bool
+var action_float_just_released: bool
+
 var time: float = 0.0
 var time_jump: float = -1.0
 var time_dash: float = -1.0
@@ -49,4 +53,8 @@ func update_input(delta: float) -> void:
 	fire_secondary_just_pressed = Input.is_action_just_pressed("fire_secondary")
 	fire_secondary_pressed = Input.is_action_pressed("fire_secondary")
 	fire_secondary_just_released = Input.is_action_just_released("fire_secondary")
+	
+	action_float_just_pressed = Input.is_action_just_pressed("action_float")
+	action_float_pressed = Input.is_action_pressed("action_float")
+	action_float_just_released = Input.is_action_just_released("action_float")
 
