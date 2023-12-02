@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cpbcc0ggutth5" path="res://Assets/Textures/Name_1m x 1m.png" id="1_k6ncu"]
 
 [sub_resource type="Environment" id="Environment_uvlfg"]
+background_mode = 1
+background_color = Color(0.533333, 0.654902, 0.94902, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xm06e"]
 albedo_texture = ExtResource("1_k6ncu")
