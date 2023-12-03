@@ -227,6 +227,9 @@ func update_movement(player: FpPlayer, delta: float) -> void:
 	else:
 		movement_air(player, delta)
 		
+	if fp_input.fire_primary_pressed:
+		_shoot_pistols(player)
+		
 	
 	var speed: float = velocity.length()
 	if speed > top_speed:
@@ -242,7 +245,65 @@ func update_movement(player: FpPlayer, delta: float) -> void:
 		contact_normals.append(n)
 		contact_points.append(p)
 		if coll.get_collider() is RigidBody3D:
-			var obj: RigidBody3D = coll.collider
+			var obj: RigidBody3D = coll.get_collider()
 			var imp: Vector3 = -n * 1.0
 			obj.set_sleeping(false)
 			obj.apply_impulse(imp, p - obj.global_transform.origin)
+			
+
+
+
+
+
+
+
+#shooting stuff below
+var bullet = load("res://Scenes/Bullet.tscn")
+var bullet_trail = load("res://Scenes/BulletTrail.tscn")
+var instance
+
+
+# Guns
+#@onready var gun_anim2 = $Head/Camera3D/Rifle2/AnimationPlayer
+#@onready var gun_barrel2 = $Head/Camera3D/Rifle2/RayCast3D
+#@onready var auto_anim = $Head/Camera3D/SteampunkAuto/AnimationPlayer
+#@onready var auto_barrel = $Head/Camera3D/SteampunkAuto/Meshes/Barrel
+
+func _shoot_pistols(player: FpPlayer):
+	if !player.fp_camera.gun_anim.is_playing():
+		player.fp_camera.gun_anim.play("Shoot")
+		instance = bullet.instantiate()
+		instance.position = player.fp_camera.gun_barrel.global_position
+		player.get_parent().add_child(instance)
+		if player.fp_camera.aim_ray.is_colliding():
+			instance.set_velocity(player.fp_camera.aim_ray.get_collision_point())
+		else:
+			instance.set_velocity(player.fp_camera.aim_ray_end.global_position)
+#	if !gun_anim2.is_playing():
+#		gun_anim2.play("Shoot")
+#		instance = bullet.instantiate()
+#		instance.position = gun_barrel2.global_position
+#		get_parent().add_child(instance)
+#		if aim_ray.is_colliding():
+#			instance.set_velocity(aim_ray.get_collision_point())
+#		else:
+#			instance.set_velocity(aim_ray_end.global_position)
+
+
+#func _shoot_auto():
+#	if !auto_anim.is_playing():
+#		auto_anim.play("Shoot")
+#		instance = bullet_trail.instantiate()
+#		if aim_ray.is_colliding():
+#			instance.init(auto_barrel.global_position, aim_ray.get_collision_point())
+#			get_parent().add_child(instance)
+#			if aim_ray.get_collider().is_in_group("enemy"):
+#				aim_ray.get_collider().hit()
+#				instance.trigger_particles(aim_ray.get_collision_point(),
+#											auto_barrel.global_position, true)
+#			else:
+#				instance.trigger_particles(aim_ray.get_collision_point(),
+#											auto_barrel.global_position, false)
+#		else:
+#			instance.init(auto_barrel.global_position, aim_ray_end.global_position)
+#			get_parent().add_child(instance)
