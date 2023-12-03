@@ -44,6 +44,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98603, -0.471224, 0)
 [node name="Zombie" parent="Map" instance=ExtResource("3_2756m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.793, 0, 9.522)
 
+[node name="Zombie2" parent="Map" instance=ExtResource("3_2756m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.522)
+
+[node name="Zombie3" parent="Map" instance=ExtResource("3_2756m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.793, 0, 0)
+
+[node name="Zombie4" parent="Map" instance=ExtResource("3_2756m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 9.522)
+
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="Map"]
 navigation_mesh = SubResource("NavigationMesh_j7fw2")
 

@@ -18,7 +18,6 @@ func _ready():
 func _process(delta):
 	position += velocity * delta
 	if ray.is_colliding():
-		print("collide")
 		mesh.visible = false
 		particles.emitting = true
 		ray.enabled = false
