@@ -53,6 +53,8 @@ mesh = SubResource("PlaneMesh_u3fv8")
 skeleton = NodePath("../../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map/NavigationRegion3D/Ground"]
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/NavigationRegion3D/Ground/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_xr540")
@@ -63,6 +65,8 @@ mesh = SubResource("PlaneMesh_u3fv8")
 skeleton = NodePath("../../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map/NavigationRegion3D/Ground2"]
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/NavigationRegion3D/Ground2/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_xr540")
@@ -73,6 +77,8 @@ mesh = SubResource("PlaneMesh_u3fv8")
 skeleton = NodePath("../../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map/NavigationRegion3D/Ground5"]
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/NavigationRegion3D/Ground5/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_xr540")
@@ -83,6 +89,8 @@ mesh = SubResource("PlaneMesh_u3fv8")
 skeleton = NodePath("../../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map/NavigationRegion3D/Ground3"]
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/NavigationRegion3D/Ground3/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_xr540")
@@ -93,6 +101,8 @@ mesh = SubResource("PlaneMesh_u3fv8")
 skeleton = NodePath("../../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map/NavigationRegion3D/Ground4"]
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/NavigationRegion3D/Ground4/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_xr540")
@@ -103,6 +113,8 @@ mesh = SubResource("BoxMesh_rejvu")
 skeleton = NodePath("../../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map/NavigationRegion3D/Cube"]
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/NavigationRegion3D/Cube/StaticBody3D"]
 shape = SubResource("BoxShape3D_sig3v")
@@ -113,6 +125,8 @@ mesh = SubResource("BoxMesh_rejvu")
 skeleton = NodePath("../../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map/NavigationRegion3D/Cube4"]
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/NavigationRegion3D/Cube4/StaticBody3D"]
 shape = SubResource("BoxShape3D_sig3v")
@@ -123,6 +137,8 @@ mesh = SubResource("BoxMesh_rejvu")
 skeleton = NodePath("../../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map/NavigationRegion3D/Cube2"]
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/NavigationRegion3D/Cube2/StaticBody3D"]
 shape = SubResource("BoxShape3D_sig3v")
@@ -133,6 +149,8 @@ mesh = SubResource("BoxMesh_rejvu")
 skeleton = NodePath("../../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map/NavigationRegion3D/Cube3"]
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/NavigationRegion3D/Cube3/StaticBody3D"]
 shape = SubResource("BoxShape3D_sig3v")
@@ -143,6 +161,8 @@ mesh = SubResource("BoxMesh_rejvu")
 skeleton = NodePath("../../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map/NavigationRegion3D/Cube5"]
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/NavigationRegion3D/Cube5/StaticBody3D"]
 shape = SubResource("BoxShape3D_sig3v")
@@ -153,6 +173,8 @@ mesh = SubResource("BoxMesh_rejvu")
 skeleton = NodePath("../../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map/NavigationRegion3D/Cube6"]
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/NavigationRegion3D/Cube6/StaticBody3D"]
 shape = SubResource("BoxShape3D_sig3v")

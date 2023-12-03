@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://doc4eae2n74hs"]
+
+[ext_resource type="Script" path="res://Scripts/Loot.gd" id="1_pcfq8"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ds7uu"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_y8w7n"]
+
+[node name="Coin" type="Node3D"]
+script = ExtResource("1_pcfq8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("SphereMesh_ds7uu")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="MeshInstance3D"]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/RigidBody3D"]
+shape = SubResource("SphereShape3D_y8w7n")
