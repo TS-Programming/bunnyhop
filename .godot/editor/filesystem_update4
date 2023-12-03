@@ -1,9 +1,7 @@
 res://default_env.tres
-res://Src/DefualtTheme.tres
-res://Scripts/Zombie.gd
-res://Models/Loot/Coin.tscn
 res://Src/Maps/Main2.tscn
+res://Src/DefualtTheme.tres
+res://Scripts/Loot.gd
 res://Src/Entities/FpPlayer/FpPlayer.tscn
 res://Scenes/Zombie.tscn
-res://Scripts/Loot.gd
-res://Scripts/Bullet.gd
+res://Models/Loot/Coin.tscn

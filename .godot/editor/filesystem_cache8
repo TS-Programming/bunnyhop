@@ -1,6 +1,6 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1701584501
-default_env.tres::Environment::2656401079889765124::1701582858::0::1::::<><>::
+::res://::1701641679
+default_env.tres::Environment::2656401079889765124::1701603781::0::1::::<><>::
 icon.png::CompressedTexture2D::5139618000071944777::1701251463::1701323529::1::::<><>::
 README.md::TextFile::-1::1701251463::0::1::::<><>::
 ::res://Assets/::1701323529
@@ -16,7 +16,9 @@ Name_1m x 1m.png::CompressedTexture2D::5827864727936778736::1701468674::17014698
 white.png::CompressedTexture2D::6783962203922006921::1701251463::1701323529::1::::<><>::
 white_64_30.png::CompressedTexture2D::8081334646904964830::1701251463::1701323529::1::::<><>::
 white_64_50.png::CompressedTexture2D::8760349918405079644::1701251463::1701323529::1::::<><>::
-::res://Models/::1701561917
+::res://Models/::1701584585
+::res://Models/Loot/::1701603781
+Coin.tscn::PackedScene::8147802560910361124::1701603781::0::1::::<><>::res://Scripts/Loot.gd
 ::res://Models/SteampunkAuto/::1701547368
 steampunk_rifle.glb::PackedScene::7865521095621477746::1701542277::1701547368::1::::<><>::uid://bsb7wvwpuhgx
 steampunk_rifle_0.png::CompressedTexture2D::107466694583846159::1701542277::1701547366::1::::<><>::
@@ -37,19 +39,20 @@ Zombie_mremireh_body_normal.png::CompressedTexture2D::3200356833629697646::17015
 Zombie_mremireh_body__diffuse.png::CompressedTexture2D::3683688342398083987::1701542278::1701561921::1::::<><>::
 Zombie_mremireh_shoe_diffuse.png::CompressedTexture2D::3493462165409732989::1701542278::1701561921::1::::<><>::
 Zombie_mremireh_shoe_normal.png::CompressedTexture2D::1864499228480056299::1701542278::1701561921::1::::<><>::
-::res://Scenes/::1701582333
+::res://Scenes/::1701603781
 Bullet.tscn::PackedScene::8114734191148911532::1701560531::0::1::::<><>::res://Scripts/Bullet.gd
 BulletTrail.tscn::PackedScene::4219986312860801518::1701560531::0::1::::<><>::res://Scripts/BulletTrail.gd
 Rifle.tscn::PackedScene::8824770916071826738::1701560531::0::1::::<><>::uid://beylmx8mc8h0i
 SteampunkAuto.tscn::PackedScene::6295161125097294323::1701551532::0::1::::<><>::uid://bsb7wvwpuhgx
-Zombie.tscn::PackedScene::1717317961279460629::1701582333::0::1::::<><>::uid://bsqn2q8kfv756::::res://Models/Zombie/Zombie_mremireh_body__diffuse.png<>res://Scripts/Zombie.gd<>uid://blujn6l5bhfas::::res://Models/Zombie/Zombie_mremireh_body_normal.png<>uid://bp1i2ub0lqf0h::::res://Models/Zombie/Zombie_mremireh_shoe_diffuse.png<>uid://1tgbaswfvh2b::::res://Models/Zombie/Zombie_mremireh_shoe_normal.png<>res://Scripts/BodyPart.gd
-::res://Scripts/::1701583471
+Zombie.tscn::PackedScene::1717317961279460629::1701603781::0::1::::<><>::uid://bsqn2q8kfv756::::res://Models/Zombie/Zombie_mremireh_body__diffuse.png<>res://Scripts/Zombie.gd<>uid://blujn6l5bhfas::::res://Models/Zombie/Zombie_mremireh_body_normal.png<>uid://bp1i2ub0lqf0h::::res://Models/Zombie/Zombie_mremireh_shoe_diffuse.png<>uid://1tgbaswfvh2b::::res://Models/Zombie/Zombie_mremireh_shoe_normal.png<>res://Scripts/BodyPart.gd
+::res://Scripts/::1701603781
 BodyPart.gd::GDScript::-1::1701542278::0::1::::<>Area3D<>::
-Bullet.gd::GDScript::-1::1701562438::0::1::::<>Node3D<>::
+Bullet.gd::GDScript::-1::1701587406::0::1::::<>Node3D<>::
 BulletTrail.gd::GDScript::-1::1701542278::0::1::::<>MeshInstance3D<>::
-Zombie.gd::GDScript::-1::1701583471::0::1::::<>CharacterBody3D<>::
-::res://Src/::1701577135
-DefualtTheme.tres::Theme::5441335455068786383::1701577135::0::1::::<><>::uid://dhwd34happdug::::res://Assets/Prototype.ttf
+Loot.gd::GDScript::-1::1701603781::0::1::::<>Node3D<>::
+Zombie.gd::GDScript::-1::1701584924::0::1::::<>CharacterBody3D<>::
+::res://Src/::1701598371
+DefualtTheme.tres::Theme::5441335455068786383::1701598371::0::1::::<><>::uid://dhwd34happdug::::res://Assets/Prototype.ttf
 ::res://Src/Autoloads/::1701469290
 HideMouse.gd::GDScript::-1::1701469290::0::1::::<>Node2D<>::
 PlayerMovementSettings.gd::GDScript::-1::1701323393::0::1::::<>Node<>::
@@ -59,11 +62,11 @@ DbgDraw.tscn::PackedScene::5800712113324297683::1701330042::0::1::::<><>::res://
 DbgHit.gd::GDScript::-1::1701323393::0::1::::<>MultiMeshInstance3D<>::
 DbgHit.tscn::PackedScene::-1::1701323393::0::1::::<><>::res://Src/Autoloads/Dbg/DbgHit.gd
 ::res://Src/Entities/::1701251463
-::res://Src/Entities/FpPlayer/::1701582858
+::res://Src/Entities/FpPlayer/::1701603781
 FpInput.gd::GDScript::-1::1701492983::0::1::::FpInput<>Node<>::
 FpMovement.gd::GDScript::-1::1701581457::0::1::::FpMovement<>Node<>::
 FpPlayer.gd::GDScript::-1::1701582858::0::1::::FpPlayer<>CharacterBody3D<>::
-FpPlayer.tscn::PackedScene::1186429975836823696::1701582858::0::1::::<><>::uid://hdkw7k5hewjh::::res://Src/Entities/FpPlayer/FpCamera/FpCamera.tscn<>uid://bn3et1mo1k5d0::::res://Src/Entities/FpPlayer/FpHud/FpHud.tscn<>res://Src/Entities/FpPlayer/FpMovement.gd<>res://Src/Entities/FpPlayer/FpInput.gd<>res://Src/Entities/FpPlayer/FpPlayer.gd
+FpPlayer.tscn::PackedScene::1186429975836823696::1701603781::0::1::::<><>::uid://hdkw7k5hewjh::::res://Src/Entities/FpPlayer/FpCamera/FpCamera.tscn<>uid://bn3et1mo1k5d0::::res://Src/Entities/FpPlayer/FpHud/FpHud.tscn<>res://Src/Entities/FpPlayer/FpMovement.gd<>res://Src/Entities/FpPlayer/FpInput.gd<>res://Src/Entities/FpPlayer/FpPlayer.gd
 ::res://Src/Entities/FpPlayer/FpCamera/::1701560531
 FpCamera.gd::GDScript::-1::1701550746::0::1::::FpCamera<>Marker3D<>::
 FpCamera.tscn::PackedScene::498163193689827169::1701560531::0::1::::<><>::res://Src/Entities/FpPlayer/FpCamera/FpCamera.gd<>uid://dxy1xm7jti62q
@@ -72,8 +75,8 @@ FpHud.gd::GDScript::-1::1701324229::0::1::::<>CanvasLayer<>::
 FpHud.tscn::PackedScene::3356956410972479911::1701474015::0::1::::<><>::uid://0rv4u1sefojj
 Keys.gd::GDScript::-1::1701323393::0::1::::<>VBoxContainer<>::
 MousePassHud.gd::GDScript::-1::1701323393::0::1::::<>Control<>::
-::res://Src/Maps/::1701581838
-Main2.tscn::PackedScene::5404784184869794879::1701581838::0::1::::<><>::uid://q5ylft7s4bca::::res://Src/Entities/FpPlayer/FpPlayer.tscn<>uid://cpbcc0ggutth5::::res://Assets/Textures/Name_1m x 1m.png<>uid://yp48gfrwtw4l::::res://Scenes/Zombie.tscn
+::res://Src/Maps/::1701603781
+Main2.tscn::PackedScene::5404784184869794879::1701603781::0::1::::<><>::uid://q5ylft7s4bca::::res://Src/Entities/FpPlayer/FpPlayer.tscn<>uid://cpbcc0ggutth5::::res://Assets/Textures/Name_1m x 1m.png<>uid://yp48gfrwtw4l::::res://Scenes/Zombie.tscn
 Main.exr::CompressedTexture2D::828378080024866587::1701251463::1701323420::1::::<><>::
 Main.lmbake::LightmapGIData::-1::1701251463::0::1::::<><>::res://Src/Maps/Main.exr
 Main.tscn::PackedScene::5216660251934889917::1701474015::0::1::::<><>::uid://q5ylft7s4bca
