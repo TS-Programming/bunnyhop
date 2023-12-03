@@ -74,7 +74,6 @@ material = SubResource("StandardMaterial3D_e50nl")
 size = Vector3(0.02, 0.02, 0.02)
 
 [node name="Bullet" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.234596, 0.0095048, -0.00442576, 0.265837)
 script = ExtResource("1_lc6tw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -96,7 +95,6 @@ emitting = false
 lifetime = 0.8
 one_shot = true
 explosiveness = 1.0
-visibility_aabb = AABB(-0.122116, -0.0944466, -1.22352, 0.244231, 0.188893, 2.44704)
 process_material = SubResource("ParticleProcessMaterial_txgw4")
 draw_pass_1 = SubResource("SphereMesh_01g8p")
 

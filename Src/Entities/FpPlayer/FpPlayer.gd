@@ -48,7 +48,6 @@ func _process(_delta: float) -> void:
 	draw_movement_arrows()
 
 func _physics_process(delta: float) -> void:
-	
 	fp_input.update_input(delta)
 	fp_movement.update_movement(self, delta)
 	
@@ -63,3 +62,10 @@ func _physics_process(delta: float) -> void:
 	move_direction_prev = move_direction_now
 	move_direction_now = fp_movement.move_direction
 	
+
+
+func hit(dir):
+	emit_signal("player_hit")
+#	velocity += dir * HIT_STAGGER
+#	if velocity.length() > SPRINT_SPEED:
+#		velocity = velocity.normalized() * SPRINT_SPEED
