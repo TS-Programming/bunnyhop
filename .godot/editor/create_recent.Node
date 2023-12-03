@@ -1,8 +1,11 @@
+NavigationRegion3D
+GPUParticles3D
+CyclopsBlocks
+SpotLight3D
 CollisionShape3D
 Area3D
 RigidBody3D
 MeshInstance3D
-NavigationRegion3D
 Node3D
 CanvasGroup
 StaticBody3D

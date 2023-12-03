@@ -20,6 +20,7 @@ config/icon="res://icon.png"
 DbgDraw="*res://Src/Autoloads/Dbg/DbgDraw.tscn"
 PlayerMovementSettings="*res://Src/Autoloads/PlayerMovementSettings.gd"
 HideMouse="*res://Src/Autoloads/HideMouse.gd"
+CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
 
 [display]
 
@@ -30,7 +31,7 @@ window/size/initial_position_type=2
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/cyclops_level_builder/plugin.cfg")
 
 [input]
 
