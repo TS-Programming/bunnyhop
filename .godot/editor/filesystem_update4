@@ -1,11 +1,5 @@
 res://default_env.tres
 res://Src/Maps/Main2.tscn
 res://Src/DefualtTheme.tres
-res://Src/Entities/FpPlayer/FpMovement.gd
-res://Src/Entities/FpPlayer/FpCamera/FpCamera.tscn
 res://Src/Entities/FpPlayer/FpPlayer.tscn
-res://Scenes/Bullet.tscn
-res://Scenes/BulletTrail.tscn
-res://Scenes/SteampunkAuto.tscn
-res://Scenes/Rifle.tscn
-res://Src/Entities/FpPlayer/FpCamera/FpCamera.gd
+res://Scenes/Zombie.tscn

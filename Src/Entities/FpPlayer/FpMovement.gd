@@ -245,7 +245,7 @@ func update_movement(player: FpPlayer, delta: float) -> void:
 		contact_normals.append(n)
 		contact_points.append(p)
 		if coll.get_collider() is RigidBody3D:
-			var obj: RigidBody3D = coll.collider
+			var obj: RigidBody3D = coll.get_collider()
 			var imp: Vector3 = -n * 1.0
 			obj.set_sleeping(false)
 			obj.apply_impulse(imp, p - obj.global_transform.origin)

@@ -52,5 +52,5 @@ libraries = {
 }
 
 [node name="RayCast3D" type="RayCast3D" parent="." index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015, -0.456)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015, -0.457129)
 target_position = Vector3(0, 0, -1)

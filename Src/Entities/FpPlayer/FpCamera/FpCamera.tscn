@@ -16,7 +16,7 @@ fov = 80.0
 far = 1000.0
 
 [node name="Rifle" parent="H/V/Camera3D" instance=ExtResource("2_24m5i")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.2, -0.48)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.2, -0.4)
 
 [node name="AimRay" type="RayCast3D" parent="H/V/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
