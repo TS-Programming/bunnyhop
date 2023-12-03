@@ -3,3 +3,4 @@ res://Src/Maps/Main2.tscn
 res://Src/DefualtTheme.tres
 res://Src/Entities/FpPlayer/FpPlayer.tscn
 res://Scenes/Zombie.tscn
+res://Scripts/Zombie.gd

@@ -7,7 +7,7 @@ var health = 8
 
 signal zombie_hit
 
-const SPEED = 4.5
+const SPEED = 8
 const ATTACK_RANGE = 2.0
 
 @export var player_path := "/root/Main2/Map/FpPlayer"
@@ -31,7 +31,6 @@ func _process(delta):
 			# Navigation
 			nav_agent.set_target_position(player.global_transform.origin)
 			var next_nav_point = nav_agent.get_next_path_position()
-			#print(next_nav_point)
 			velocity = (next_nav_point - global_transform.origin).normalized() * SPEED
 			rotation.y = lerp_angle(rotation.y, atan2(-velocity.x, -velocity.z), delta * 10.0)
 		"Attack":
