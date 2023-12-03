@@ -15,6 +15,8 @@ var velocity_now: Vector3
 var move_direction_prev: Vector3
 var move_direction_now: Vector3
 
+signal player_hit
+
 func update_movement_settings() -> void:
 	fp_camera.mouse_horizontal_sensitivity = PlayerMovementSettings.mouse_horizontal_sensitivity
 	fp_camera.mouse_vertical_sensitivity = PlayerMovementSettings.mouse_vertical_sensitivity
@@ -61,11 +63,7 @@ func _physics_process(delta: float) -> void:
 	
 	move_direction_prev = move_direction_now
 	move_direction_now = fp_movement.move_direction
-	
 
-
-func hit(dir):
+func hit(damage: int , knockback: Vector3):
 	emit_signal("player_hit")
-#	velocity += dir * HIT_STAGGER
-#	if velocity.length() > SPRINT_SPEED:
-#		velocity = velocity.normalized() * SPRINT_SPEED
+	fp_movement.on_hit(0, knockback)

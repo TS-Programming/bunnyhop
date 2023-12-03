@@ -9,8 +9,11 @@ signal zombie_hit
 
 const SPEED = 8
 const ATTACK_RANGE = 2.0
+const KNOCKBACK = 15
+const DAMAGE = 10
 
 @export var player_path := "/root/Main2/Map/FpPlayer"
+var loot = load("res://Models/Loot/Coin.tscn")
 
 @onready var nav_agent = $NavigationAgent3D
 @onready var anim_tree = $AnimationTree
@@ -51,7 +54,7 @@ func _target_in_range():
 func _hit_finished():
 	if global_position.distance_to(player.global_position) < ATTACK_RANGE + 1.0:
 		var dir = global_position.direction_to(player.global_position)
-		player.hit(dir)
+		player.hit(DAMAGE, dir * KNOCKBACK)
 
 
 
@@ -62,4 +65,7 @@ func _on_area_3d_body_part_hit(dam):
 	if health <= 0:
 		anim_tree.set("parameters/conditions/die", true)
 		await get_tree().create_timer(4.0).timeout
+		var instance = loot.instantiate()
+		instance.position = position
+		player.get_parent().add_child(instance)
 		queue_free()

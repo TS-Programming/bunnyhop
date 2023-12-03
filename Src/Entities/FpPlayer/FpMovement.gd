@@ -250,9 +250,12 @@ func update_movement(player: FpPlayer, delta: float) -> void:
 			obj.set_sleeping(false)
 			obj.apply_impulse(imp, p - obj.global_transform.origin)
 			
+			
 
 
-
+func on_hit(damage: int, direction: Vector3):
+	print(direction)
+	velocity += direction
 
 
 
