@@ -1,12 +1,12 @@
 res://default_env.tres
 res://Src/Maps/Main2.tscn
+res://addons/cyclops_level_builder/shaders/outline_shader.tres
+res://addons/cyclops_level_builder/docks/material_palette/thumbnail_selected_theme.tres
+res://addons/cyclops_level_builder/docks/material_palette/thumbnail_normal_theme.tres
 res://Src/DefualtTheme.tres
-res://Scripts/Singletons/LootManager.gd
 res://Src/Entities/FpPlayer/FpPlayer.tscn
 res://Scenes/Zombie.tscn
 res://Models/Loot/Coin.tscn
-res://Scripts/Singletons/LightManager.gd
-res://Src/Entities/FpPlayer/FpHud/FpHud.tscn
 res://Scenes/LightUI.tscn
 res://Src/Autoloads/Dbg/DbgDraw.tscn
-res://Scripts/Zombie.gd
+res://Src/Entities/FpPlayer/FpHud/FpHud.tscn
