@@ -21,6 +21,7 @@ DbgDraw="*res://Src/Autoloads/Dbg/DbgDraw.tscn"
 PlayerMovementSettings="*res://Src/Autoloads/PlayerMovementSettings.gd"
 HideMouse="*res://Src/Autoloads/HideMouse.gd"
 LightManager="*res://Scripts/Singletons/LightManager.gd"
+LootManager="*res://Scripts/Singletons/LootManager.gd"
 
 [display]
 
