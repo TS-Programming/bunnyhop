@@ -40,6 +40,17 @@ var contact_points: Array
 
 var top_speed: float = 0.0
 
+var dash_speed: float = 20.0  # Adjust the dash speed as needed
+var dash_duration: float = 0.25  # Duration of the dash in seconds
+var dash_elapsed: float = 0.0  # Time elapsed since the dash started
+var dashing: bool = false  # Flag to indicate if a dash is currently happening
+var dash_vector: Vector3 = Vector3.ZERO
+var floating: bool = false
+var float_duration: float = 1.0  # Duration of the dash in seconds
+var float_elapsed: float = 1.0  # Time elapsed since the dash started
+var numDashes: int = 0
+var isDashCharged: bool = true
+
 func get_velocity() -> float:
 	return velocity.length()
 
@@ -170,14 +181,6 @@ func movement_air(player: FpPlayer, delta: float) -> void:
 	player.move_and_slide()
 	velocity = player.velocity
 	
-var dash_speed: float = 20.0  # Adjust the dash speed as needed
-var dash_duration: float = 0.25  # Duration of the dash in seconds
-var dash_elapsed: float = 0.0  # Time elapsed since the dash started
-var dashing: bool = false  # Flag to indicate if a dash is currently happening
-var dash_vector: Vector3 = Vector3.ZERO
-var floating: bool = false
-var float_duration: float = 1.0  # Duration of the dash in seconds
-var float_elapsed: float = 1.0  # Time elapsed since the dash started
 
 func initiate_dash(player: FpPlayer) -> void:
 	var fp_cam_basis: Basis = player.fp_camera.get_camera_basis()
@@ -190,6 +193,10 @@ func initiate_dash(player: FpPlayer) -> void:
 	dash_vector = move_direction * dash_speed
 	dash_elapsed = 0.0
 	dashing = true
+	numDashes -= 1
+	if numDashes <= 0:
+		isDashCharged = false
+		print("sdfkjhdsuyfgdsuy")
 
 func process_dash(player: FpPlayer, delta: float) -> void:
 	if dashing:
@@ -204,6 +211,14 @@ func process_dash(player: FpPlayer, delta: float) -> void:
 			velocity = Vector3.ZERO
 			player.set_velocity(velocity)
 			dashing = false
+			start_dash_timer(2)
+
+func start_dash_timer(time: float):
+	await get_tree().create_timer(time).timeout
+	isDashCharged = true
+	
+
+
 
 func update_movement(player: FpPlayer, delta: float) -> void:
 	#print(velocity.length())
@@ -214,12 +229,14 @@ func update_movement(player: FpPlayer, delta: float) -> void:
 	move_direction = fp_cam_hbasis.x * fp_input.input_move.x + fp_cam_hbasis.z * fp_input.input_move.z
 	move_direction = move_direction.normalized()
 	
-	if fp_input.queue_dash:
+	if fp_input.queue_dash and numDashes > 0 and isDashCharged:
 		initiate_dash(player)
 		process_dash(player, delta)
 	else: if dashing:
 		process_dash(player, delta)
 	else: if player.is_on_floor():
+		
+		numDashes = 1
 		float_elapsed = 1.0
 		movement_floor(player, delta)
 	else: if floating:

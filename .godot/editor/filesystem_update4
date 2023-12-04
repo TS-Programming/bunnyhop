@@ -10,3 +10,5 @@ res://Models/Loot/Coin.tscn
 res://Scenes/LightUI.tscn
 res://Src/Autoloads/Dbg/DbgDraw.tscn
 res://Src/Entities/FpPlayer/FpHud/FpHud.tscn
+res://Scripts/Singletons/LootManager.gd
+res://Src/Entities/FpPlayer/FpMovement.gd
