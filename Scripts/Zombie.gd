@@ -4,6 +4,7 @@ extends CharacterBody3D
 var player = null
 var state_machine
 var health = 8
+var og_scale
 
 signal zombie_hit
 
@@ -23,11 +24,16 @@ var loot = load("res://Models/Loot/Coin.tscn")
 func _ready():
 	player = get_node(player_path)
 	state_machine = anim_tree.get("parameters/playback")
+	og_scale = scale
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if LightManager.is_green_light():
+		return
+		
 	velocity = Vector3.ZERO
+	
 	
 	match state_machine.get_current_node():
 		"Run":
@@ -38,11 +44,10 @@ func _process(delta):
 			rotation.y = lerp_angle(rotation.y, atan2(-velocity.x, -velocity.z), delta * 10.0)
 		"Attack":
 			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
-	
-	# Conditions
+
+
 	anim_tree.set("parameters/conditions/attack", _target_in_range())
 	anim_tree.set("parameters/conditions/run", !_target_in_range())
-	
 	
 	move_and_slide()
 
@@ -59,6 +64,10 @@ func _hit_finished():
 
 
 func _on_area_3d_body_part_hit(dam):
+	if LightManager.is_green_light():
+		health += dam
+		if og_scale * 2 > scale:
+			scale *= 1.5
 	health -= dam
 	print(health)
 	emit_signal("zombie_hit")
