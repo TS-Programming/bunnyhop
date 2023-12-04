@@ -61,5 +61,6 @@ shape = SubResource("SphereShape3D_qpycc")
 [node name="ParticleEnergy" type="GPUParticles3D" parent="."]
 material_override = SubResource("ShaderMaterial_s6ar4")
 cast_shadow = 0
+amount = 10
 process_material = SubResource("ParticleProcessMaterial_j5mw5")
 draw_pass_1 = SubResource("QuadMesh_36sno")
