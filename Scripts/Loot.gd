@@ -22,7 +22,7 @@ var random_angle_variance: float = 2  # Max deviation in radians for side-to-sid
 var side_angle: float = 0.0
 var actual_arc_height: float = 2.0
 
-var value: int = 1
+var value: int = 5
 
 
 # Ready function

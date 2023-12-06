@@ -26,6 +26,8 @@ var snap_to_floor_modifier: float = 1.0
 
 @export var step_distance: float = 3.0
 
+@onready var weapon_manager  = $/root/Main2/Map/FpPlayer/FpCamera/H/V/Camera3D/WeaponManager
+
 var time: float = 0.0
 
 var move_direction: Vector3
@@ -243,8 +245,10 @@ func update_movement(player: FpPlayer, delta: float) -> void:
 	else:
 		movement_air(player, delta)
 		
-	if fp_input.fire_primary_pressed:
-		_shoot_auto(player)
+	if fp_input.fire_primary_just_pressed:
+		weapon_manager.shoot(false)
+	elif fp_input.fire_secondary_pressed:
+		weapon_manager.secondary_shoot(true, 3)
 		
 	
 	var speed: float = velocity.length()
@@ -272,59 +276,3 @@ func update_movement(player: FpPlayer, delta: float) -> void:
 func on_hit(damage: int, direction: Vector3):
 	print(direction)
 	velocity += direction
-
-
-
-
-#shooting stuff below
-var bullet = load("res://Scenes/Bullet.tscn")
-var bullet_trail = load("res://Scenes/BulletTrail.tscn")
-var instance
-
-
-# Guns
-#@onready var gun_anim2 = $Head/Camera3D/Rifle2/AnimationPlayer
-#@onready var gun_barrel2 = $Head/Camera3D/Rifle2/RayCast3D
-#@onready var auto_anim = $Head/Camera3D/SteampunkAuto/AnimationPlayer
-#@onready var auto_barrel = $Head/Camera3D/SteampunkAuto/Meshes/Barrel
-
-func _shoot_pistols(player: FpPlayer):
-	if !player.fp_camera.gun_anim.is_playing():
-		player.fp_camera.gun_anim.play("Shoot")
-		instance = bullet.instantiate()
-		instance.position = player.fp_camera.gun_barrel.global_position
-		player.get_parent().add_child(instance)
-		if player.fp_camera.aim_ray.is_colliding():
-			instance.set_velocity(player.fp_camera.aim_ray.get_collision_point())
-		else:
-			instance.set_velocity(player.fp_camera.aim_ray_end.global_position)
-#	if !gun_anim2.is_playing():
-#		gun_anim2.play("Shoot")
-#		instance = bullet.instantiate()
-#		instance.position = gun_barrel2.global_position
-#		get_parent().add_child(instance)
-#		if aim_ray.is_colliding():
-#			instance.set_velocity(aim_ray.get_collision_point())
-#		else:
-#			instance.set_velocity(aim_ray_end.global_position)
-
-
-func _shoot_auto(player: FpPlayer):
-	if !player.fp_camera.auto_anim.is_playing():
-		player.fp_camera.auto_anim.play("Shoot")
-		instance = bullet_trail.instantiate()
-		if player.fp_camera.aim_ray.is_colliding():
-			instance.init(player.fp_camera.auto_barrel.global_position, player.fp_camera.aim_ray.get_collision_point())
-			player.get_parent().add_child(instance)
-			print(player.fp_camera.aim_ray.get_collider().name)
-			if player.fp_camera.aim_ray.get_collider().is_in_group("enemy"):
-				print("hoooot")
-				player.fp_camera.aim_ray.get_collider().hit()
-				instance.trigger_particles(player.fp_camera.aim_ray.get_collision_point(),
-											player.fp_camera.auto_barrel.global_position, true)
-			else:
-				instance.trigger_particles(player.fp_camera.aim_ray.get_collision_point(),
-											player.fp_camera.auto_barrel.global_position, false)
-		else:
-			instance.init(player.fp_camera.auto_barrel.global_position, player.fp_camera.aim_ray_end.global_position)
-			player.get_parent().add_child(instance)

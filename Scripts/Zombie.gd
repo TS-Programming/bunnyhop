@@ -3,7 +3,7 @@ extends CharacterBody3D
 
 var player = null
 var state_machine
-var health = 8
+var health = 3
 var og_scale
 
 signal zombie_hit

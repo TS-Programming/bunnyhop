@@ -46,5 +46,6 @@ func add_funds(value: int):
 func spend_funds(value: int) -> bool:
 	if funds - value > 0:
 		funds -= value
+		hud.set_funds(funds)
 		return true
 	return false

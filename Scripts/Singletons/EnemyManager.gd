@@ -8,7 +8,7 @@ var spawn_point_queue = []
 var cooldown_queue = []
 
 var time_left_to_next_spawn: float = 1.0
-var time_between_spawns: float = 3.0
+var time_between_spawns: float = 1
 
 func _ready():
 	LightManager.enemy_manager_synch()
