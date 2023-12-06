@@ -6,10 +6,10 @@ const MOUSE_SENSITIVITY_FACTOR := 0.001
 @onready var camera := $H/V/Camera3D
 
 #guns
-@onready var gun_anim :=  $H/V/Camera3D/Rifle/AnimationPlayer
-@onready var gun_barrel :=  $H/V/Camera3D/Rifle/RayCast3D
+@onready var auto_anim :=  $H/V/Camera3D/WeaponManager/Weapons/Tier1/AnimationPlayer
 @onready var aim_ray :=  $H/V/Camera3D/AimRay
 @onready var aim_ray_end :=  $H/V/Camera3D/AimRayEnd
+@onready var auto_barrel = $H/V/Camera3D/WeaponManager/Weapons/Tier1/Meshes/Barrel
 #end guns
 
 @onready var fp_player: FpPlayer = get_parent()
