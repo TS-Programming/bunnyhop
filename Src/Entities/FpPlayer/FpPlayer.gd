@@ -8,6 +8,7 @@ extends CharacterBody3D
 @onready var fp_movement := $FpMovement
 @onready var fp_camera := $FpCamera
 
+
 # needed to draw movement arrows
 var velocity_prev: Vector3
 var velocity_now: Vector3

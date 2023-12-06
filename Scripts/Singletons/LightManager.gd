@@ -14,8 +14,7 @@ var num_switches: int = 0
 var min_time_between_switches: float = 5.0  # Minimum time in seconds
 var max_time_between_switches: float = 30.0  # Maximum time in seconds
 var time_to_next_switch: float = 0  # Time until the next state switc
-var time_left_to_next_spawn: float = 1.0
-var time_between_spawns: float = 3.0
+
 
 var main: Node3D
 
@@ -32,13 +31,7 @@ func _process(delta):
 	if time_to_next_switch <= 0:
 		switch_state()
 		time_to_next_switch = randf_range(min_time_between_switches, max_time_between_switches)
-	if is_green_light():
-		time_left_to_next_spawn -= delta
-		if time_left_to_next_spawn <= 0:
-			time_left_to_next_spawn = time_between_spawns
-			main.spawn_zombie()
-	else:
-		main.reset()
+
 
 # Function to update label text
 func update_label():

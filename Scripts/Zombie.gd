@@ -96,8 +96,8 @@ func spawn_loot_spiral():
 		
 func die():
 	anim_tree.set("parameters/conditions/die", true)
-	LootManager.register_kill()
 	await get_tree().create_timer(4.0).timeout  # Wait for 4 seconds
+	LootManager.register_kill()
 	spawn_loot_spiral()
 	queue_free()
 

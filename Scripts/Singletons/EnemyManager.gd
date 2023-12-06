@@ -7,9 +7,21 @@ var zombie = preload("res://Scenes/Zombie.tscn")
 var spawn_point_queue = []
 var cooldown_queue = []
 
+var time_left_to_next_spawn: float = 1.0
+var time_between_spawns: float = 3.0
+
 func _ready():
 	LightManager.enemy_manager_synch()
 	initialize_queue()
+	
+func _process(delta):
+	if LightManager.is_green_light():
+		time_left_to_next_spawn -= delta
+	if time_left_to_next_spawn - LightManager.num_switches * 0.05 <= 0:
+		time_left_to_next_spawn = time_between_spawns
+		spawn_zombie()
+	else:
+		reset()
 
 func initialize_queue():
 	for i in range(spawns.get_child_count()):
@@ -27,25 +39,10 @@ func spawn_zombie():
 	instance.visible = false
 	instance.zombie_hit.connect(_on_enemy_hit)
 	navigation_region.add_child(instance)
-	
-	# Move the spawn point to the cooldown queue
+
 	cooldown_queue.append(spawn_point_node)
 
-#	# Re-enqueue the spawn point after a delay
-#	enqueue_spawn_point_with_delay(spawn_point_node)
 
-#func enqueue_spawn_point_with_delay(spawn_point_node):
-#	var timer = Timer.new()
-#	timer.wait_time = 4.0  # Cooldown period
-#	timer.one_shot = true
-#	timer.connect("timeout", self, "_on_timer_timeout", [spawn_point_node])
-#	add_child(timer)
-#	timer.start()
-
-#func _on_timer_timeout(spawn_point_node):
-#	spawn_point_queue.append(spawn_point_node)
-#	# Optionally, remove the Timer node
-#	timer.queue_free()
 
 func _on_enemy_hit():
 	print("Replace this print with a signal for zombie on hit")

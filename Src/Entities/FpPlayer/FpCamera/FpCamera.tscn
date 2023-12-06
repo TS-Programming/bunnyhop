@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://hdkw7k5hewjh"]
+[gd_scene load_steps=4 format=3 uid="uid://hdkw7k5hewjh"]
 
 [ext_resource type="Script" path="res://Src/Entities/FpPlayer/FpCamera/FpCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://dxy1xm7jti62q" path="res://Scenes/Rifle.tscn" id="2_24m5i"]
+[ext_resource type="PackedScene" uid="uid://cvxonb5tocae2" path="res://Scenes/SteampunkAuto.tscn" id="3_4hvf1"]
 
 [node name="FpCamera" type="Marker3D"]
 script = ExtResource("1")
@@ -17,10 +18,16 @@ far = 1000.0
 
 [node name="Rifle" parent="H/V/Camera3D" instance=ExtResource("2_24m5i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.2, -0.4)
+visible = false
+
+[node name="SteampunkAuto" parent="H/V/Camera3D" instance=ExtResource("3_4hvf1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.197073, -0.287, -0.182347)
 
 [node name="AimRay" type="RayCast3D" parent="H/V/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 target_position = Vector3(0, 0, -100)
+collision_mask = 3
+collide_with_areas = true
 
 [node name="AimRayEnd" type="Node3D" parent="H/V/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -101.5)

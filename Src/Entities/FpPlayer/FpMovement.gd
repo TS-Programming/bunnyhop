@@ -46,8 +46,8 @@ var dash_elapsed: float = 0.0  # Time elapsed since the dash started
 var dashing: bool = false  # Flag to indicate if a dash is currently happening
 var dash_vector: Vector3 = Vector3.ZERO
 var floating: bool = false
-var float_duration: float = 1.0  # Duration of the dash in seconds
-var float_elapsed: float = 1.0  # Time elapsed since the dash started
+var float_duration: float = 3.0  # Duration of the dash in seconds
+var float_elapsed: float = 3.0  # Time elapsed since the dash started
 var numDashes: int = 0
 var isDashCharged: bool = true
 
@@ -196,7 +196,6 @@ func initiate_dash(player: FpPlayer) -> void:
 	numDashes -= 1
 	if numDashes <= 0:
 		isDashCharged = false
-		print("sdfkjhdsuyfgdsuy")
 
 func process_dash(player: FpPlayer, delta: float) -> void:
 	if dashing:
@@ -237,7 +236,7 @@ func update_movement(player: FpPlayer, delta: float) -> void:
 	else: if player.is_on_floor():
 		
 		numDashes = 1
-		float_elapsed = 1.0
+		float_elapsed = float_duration
 		movement_floor(player, delta)
 	else: if floating:
 		movement_float(player, delta)
@@ -245,7 +244,7 @@ func update_movement(player: FpPlayer, delta: float) -> void:
 		movement_air(player, delta)
 		
 	if fp_input.fire_primary_pressed:
-		_shoot_pistols(player)
+		_shoot_auto(player)
 		
 	
 	var speed: float = velocity.length()
@@ -310,20 +309,22 @@ func _shoot_pistols(player: FpPlayer):
 #			instance.set_velocity(aim_ray_end.global_position)
 
 
-#func _shoot_auto():
-#	if !auto_anim.is_playing():
-#		auto_anim.play("Shoot")
-#		instance = bullet_trail.instantiate()
-#		if aim_ray.is_colliding():
-#			instance.init(auto_barrel.global_position, aim_ray.get_collision_point())
-#			get_parent().add_child(instance)
-#			if aim_ray.get_collider().is_in_group("enemy"):
-#				aim_ray.get_collider().hit()
-#				instance.trigger_particles(aim_ray.get_collision_point(),
-#											auto_barrel.global_position, true)
-#			else:
-#				instance.trigger_particles(aim_ray.get_collision_point(),
-#											auto_barrel.global_position, false)
-#		else:
-#			instance.init(auto_barrel.global_position, aim_ray_end.global_position)
-#			get_parent().add_child(instance)
+func _shoot_auto(player: FpPlayer):
+	if !player.fp_camera.auto_anim.is_playing():
+		player.fp_camera.auto_anim.play("Shoot")
+		instance = bullet_trail.instantiate()
+		if player.fp_camera.aim_ray.is_colliding():
+			instance.init(player.fp_camera.auto_barrel.global_position, player.fp_camera.aim_ray.get_collision_point())
+			player.get_parent().add_child(instance)
+			print(player.fp_camera.aim_ray.get_collider().name)
+			if player.fp_camera.aim_ray.get_collider().is_in_group("enemy"):
+				print("hoooot")
+				player.fp_camera.aim_ray.get_collider().hit()
+				instance.trigger_particles(player.fp_camera.aim_ray.get_collision_point(),
+											player.fp_camera.auto_barrel.global_position, true)
+			else:
+				instance.trigger_particles(player.fp_camera.aim_ray.get_collision_point(),
+											player.fp_camera.auto_barrel.global_position, false)
+		else:
+			instance.init(player.fp_camera.auto_barrel.global_position, player.fp_camera.aim_ray_end.global_position)
+			player.get_parent().add_child(instance)
