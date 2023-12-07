@@ -25,6 +25,8 @@ var time_jump: float = -1.0
 var time_dash: float = -1.0
 var time_jump_buffer: float = 0.16
 
+var switch_lights_just_pressed: bool
+
 func update_input(delta: float) -> void:
 	time += delta
 	input_move = Vector3(
@@ -57,4 +59,6 @@ func update_input(delta: float) -> void:
 	action_float_just_pressed = Input.is_action_just_pressed("action_float")
 	action_float_pressed = Input.is_action_pressed("action_float")
 	action_float_just_released = Input.is_action_just_released("action_float")
+	
+	switch_lights_just_pressed = Input.is_action_just_pressed("switch_lights")
 

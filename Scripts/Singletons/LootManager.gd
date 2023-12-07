@@ -8,7 +8,7 @@ var funds: int = 0
 
 var total_kills: int = 0  # Total number of kills
 var multiplier: int = 1  # Current loot multiplier
-var max_multiplier: int = 20  # Maximum multiplier value
+var max_multiplier: int = 5  # Maximum multiplier value
 var kills_needed_for_next_level: int = 1  # Kills needed to reach the next multiplier level
 
 

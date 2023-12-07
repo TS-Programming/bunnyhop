@@ -8,6 +8,7 @@ const MOUSE_SENSITIVITY_FACTOR := 0.001
 #guns
 @onready var auto_anim :=  $H/V/Camera3D/WeaponManager/Weapons/Tier1/AnimationPlayer
 @onready var aim_ray :=  $H/V/Camera3D/AimRay
+@onready var shot_gun_rays := $H/V/Camera3D/ShotGunRays
 @onready var aim_ray_end :=  $H/V/Camera3D/AimRayEnd
 @onready var auto_barrel = $H/V/Camera3D/WeaponManager/Weapons/Tier1/Meshes/Barrel
 #end guns
@@ -62,6 +63,11 @@ func get_forward_vector() -> Vector3:
 func get_interpolated_global_transform():
 	var fraction := Engine.get_physics_interpolation_fraction()
 	return old_xform.interpolate_with(current_xform, fraction) * initial_camera_xform
+	
+func _ready():
+	for ray in shot_gun_rays.get_children():	
+		ray.target_position.x = randf_range(10, -10)
+		ray.target_position.y = randf_range(10, -10)
 
 func _physics_process(_delta: float) -> void:
 	old_xform = current_xform

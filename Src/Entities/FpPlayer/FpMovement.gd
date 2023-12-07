@@ -246,9 +246,9 @@ func update_movement(player: FpPlayer, delta: float) -> void:
 		movement_air(player, delta)
 		
 	if fp_input.fire_primary_just_pressed:
-		weapon_manager.shoot(false)
+		weapon_manager.shoot(delta)
 	elif fp_input.fire_secondary_pressed:
-		weapon_manager.secondary_shoot(true, 3)
+		weapon_manager.secondary_shoot(delta)
 		
 	
 	var speed: float = velocity.length()

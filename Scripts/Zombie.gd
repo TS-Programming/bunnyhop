@@ -74,16 +74,16 @@ func _on_area_3d_body_part_hit(dam):
 		die()
 
 
+	var expression = Expression.new()
 
 func spawn_loot_spiral():
 	var loot_multiplier = LootManager.multiplier
 	var angle = 0.0
-	var radius = 1.0
+	var radius = 0.25
 	var angle_increment = 45.0  # degrees
 	var radius_increment = 0.5  # adjust for tighter or looser spiral
 
 	for i in range(loot_multiplier):
-		var expression = Expression.new()
 		var radian = deg_to_rad(angle)
 		var offset = Vector3(cos(radian), 0, sin(radian)) * radius
 
@@ -101,20 +101,3 @@ func die():
 	spawn_loot_spiral()
 	queue_free()
 
-#func _on_area_3d_body_part_hit(dam):
-#	if LightManager.is_green_light():
-#		health += dam
-#		if og_scale * 2 > scale:
-#			scale *= 1.5
-#	else:
-#		health -= dam
-#	#	print(health)
-#		emit_signal("zombie_hit")
-#		if health <= 0:
-#			anim_tree.set("parameters/conditions/die", true)
-#			LootManager.numKillsSinceLastDamaged += 1;
-#			await get_tree().create_timer(4.0).timeout
-#			var instance = loot.instantiate()
-#			instance.position = position
-#			player.get_parent().add_child(instance)
-#			queue_free()

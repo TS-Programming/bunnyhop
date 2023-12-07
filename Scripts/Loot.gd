@@ -28,7 +28,7 @@ var value: int = 5
 # Ready function
 func _ready():
 	var area = Area3D.new()
-	area.collision_layer = 2
+	area.collision_layer = 9
 	area.collision_mask = 1
 	var collision_shape = CollisionShape3D.new()
 	collision_shape.shape = SphereShape3D.new()
@@ -86,7 +86,6 @@ func set_value(amount: int):
 
 # Function to handle collectible pickup
 func collect():
-	print("collected")
 	LootManager.add_funds(value)
 	queue_free()  # Remove the collectible from the scene
 

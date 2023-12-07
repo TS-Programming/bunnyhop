@@ -15,6 +15,8 @@ var min_time_between_switches: float = 5.0  # Minimum time in seconds
 var max_time_between_switches: float = 30.0  # Maximum time in seconds
 var time_to_next_switch: float = 0  # Time until the next state switc
 
+var player
+
 
 var main: Node3D
 
@@ -22,13 +24,14 @@ func enemy_manager_synch():
 	main = get_node("/root/Main2")
 
 func _ready():
-	ui_label = get_node("/root/Main2/Map/FpPlayer/FpHud/MousePassHud/Top/LightStatus")  # Adjust the path to your label
+	ui_label = get_node("/root/Main2/Map/FpPlayer/FpHud/MousePassHud/Top/LightStatus") 
+	player = get_node("/root/Main2/Map/FpPlayer")
 	update_label()
 	time_to_next_switch = randf_range(min_time_between_switches, max_time_between_switches)
 	
 func _process(delta):
 	time_to_next_switch -= delta
-	if time_to_next_switch <= 0:
+	if time_to_next_switch <= 0 or player.fp_input.switch_lights_just_pressed:
 		switch_state()
 		time_to_next_switch = randf_range(min_time_between_switches, max_time_between_switches)
 

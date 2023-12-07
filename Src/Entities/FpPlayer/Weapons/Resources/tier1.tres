@@ -12,3 +12,7 @@ ammo_left_in_mag = 6
 mag_size = 6
 reload_time = 0.8
 fire_rate = 0.07
+is_shot_gun = false
+primary_is_auto = false
+secondary_is_auto = true
+secondary_is_continuous = false
