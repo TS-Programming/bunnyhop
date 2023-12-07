@@ -2,6 +2,8 @@ extends Node
 
 var hud = null
 @export var hud_path := "/root/Main2/Map/FpPlayer/FpHud"
+var weapon_manager = null
+var weapon_manager_path := "/root/Main2/Map/FpPlayer/FpCamera/H/V/Camera3D/WeaponManager"
 var funds: int = 0
 
 var total_kills: int = 0  # Total number of kills
@@ -13,6 +15,7 @@ var kills_needed_for_next_level: int = 1  # Kills needed to reach the next multi
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hud = get_node(hud_path)
+	weapon_manager= get_node(weapon_manager_path)
 	call_deferred("update_funds")  # Defer the call to the update_funds function
 	
 # Call this method when the player kills an enemy
@@ -41,11 +44,13 @@ func update_funds():
 
 func add_funds(value: int):
 	funds += value
+	weapon_manager.check_weapon_switch(funds)
 	hud.set_funds(funds)
 
 func spend_funds(value: int) -> bool:
 	if funds - value > 0:
 		funds -= value
+		weapon_manager.check_weapon_switch(funds)
 		hud.set_funds(funds)
 		return true
 	return false

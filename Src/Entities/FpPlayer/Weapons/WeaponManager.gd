@@ -1,51 +1,49 @@
 extends Node3D
 
-signal Weapon_Changed
-signal Update_Ammo
-signal Update_WeaponStack
-signal Hit_Successfull
-signal Add_Signal_To_HUD
+#signal Weapon_Changed
+#signal Update_Ammo
+#signal Update_WeaponStack
+#signal Hit_Successfull
+#signal Add_Signal_To_HUD
+#
+#signal Spray_Rotation
+#signal Shake_Screen
+#signal Reset_Spray
+#signal Connect_Weapon_To_HUD
+#signal Connect_Weapon_To_Camera
 
-signal Spray_Rotation
-signal Shake_Screen
-signal Reset_Spray
-signal Connect_Weapon_To_HUD
-signal Connect_Weapon_To_Camera
 
-@export var Animation_Player: AnimationPlayer
-@onready var player = $/root/Main2/Map/FpPlayer
 #@onready var Bullet_Point = get_node("%BulletPoint")
 #@onready var Debug_Bullet = preload("res://Player_Controller/Spawnable_Objects/hit_debug.tscn")
 
 
-var Melee_Shake:= Vector3(0,0,2.5)
-var Melee_Shake_Magnetude:= Vector4(1,1,1,1)
-
-#var Secondary_Mode = false
-
-var Current_Weapon = null
-
-var WeaponStack = [] #An Array of weapons currently in possesion by the player
-
-#var WeaponIndicator = 0
-var Next_Weapon: String
-
-#WEAPON TYPE ENUMERATOR TO HELP WITH CODE READABILITY
-enum {NULL,HITSCAN, PROJECTILE}
-
-var Collision_Exclusion: Array
-
-#The List of All Available weapons in the game
-var Weapons_List = {
-}
+#var Melee_Shake:= Vector3(0,0,2.5)
+#var Melee_Shake_Magnetude:= Vector4(1,1,1,1)
+#
+##var Secondary_Mode = false
+#var Current_Weapon = null
+#
+#var WeaponStack = [] #An Array of weapons currently in possesion by the player
+#
+##var WeaponIndicator = 0
+#var Next_Weapon: String
+#
+##WEAPON TYPE ENUMERATOR TO HELP WITH CODE READABILITY
+#enum {NULL,HITSCAN, PROJECTILE}
+#
+#var Collision_Exclusion: Array
+#
+##The List of All Available weapons in the game
+#var Weapons_List = {
+#}
 
 #An Array of weapon resources to make dictionary creation easier
-@export var _weapon_resources: Array[WeaponResource]
+#@export var _weapon_resources: Array[WeaponResource]
+#
+#@export var Start_Weapons: Array[String]
 
-@export var Start_Weapons: Array[String]
-
-func _ready():
-	print("weapon manager ready")
+#func _ready():
+#	print("weapon manager ready")
 #	Animation_Player.animation_finished.connect(_on_animation_finished)
 #	Initialize(Start_Weapons) #current starts on the first weapon in the stack
 
@@ -120,6 +118,9 @@ func _ready():
 #	Next_Weapon = ""
 #	enter()
 
+@export var Animation_Player: AnimationPlayer
+@onready var player = $/root/Main2/Map/FpPlayer
+
 # Variables for managing fire rate
 var time_since_last_shot = 0.0
 var fire_rate = 0.07  # Example fire rate (in seconds)
@@ -127,46 +128,78 @@ var fire_rate = 0.07  # Example fire rate (in seconds)
 func _process(delta):
 	time_since_last_shot += delta
 
-var bullet = load("res://Scenes/Bullet.tscn")
-var bullet_trail = load("res://Scenes/BulletTrail.tscn")
+#var bullet = load("res://Scenes/Bullet.tscn")
+#var bullet_trail = load("res://Scenes/BulletTrail.tscn")
 var instance
-var ammo_left_in_mag: int = 6
-var mag_size: int = 6
+#var ammo_left_in_mag: int = 6
+#var mag_size: int = 6
 var is_reloading: bool = false
-var reload_time: float = 0.8
+#var reload_time: float = 0.8
 
-# New function to handle the shooting mechanism.
-# `is_auto` could be a boolean indicating if the shooting mode is automatic.
+#An Array of weapon resources to make dictionary creation easier
+@export var weapon_resources: Array[WeaponResource]
+@export var weapon_tier_prices: Array[int] #including base tier for 0
+
+var current_weapon: WeaponResource
+var current_weapon_tier: int
+
+
+
+func _ready():
+	if weapon_resources.size() == 0:
+		error_string(1)
+	else:
+		current_weapon = weapon_resources[0]
+		current_weapon_tier = 0
+
+func change_weapon_tier(tier: int):
+	current_weapon_tier = tier
+	current_weapon = weapon_resources[tier]
+	
+
+func check_weapon_switch(loot: int):
+	if loot > weapon_tier_prices[current_weapon_tier] and current_weapon_tier + 1 < weapon_resources.size():
+		if weapon_tier_prices[current_weapon_tier + 1] <= loot:
+			change_weapon_tier(current_weapon_tier + 1)
+	elif current_weapon_tier - 1 < weapon_resources.size():
+		if weapon_tier_prices[current_weapon_tier - 1] > loot:
+			change_weapon_tier(current_weapon_tier - 1)
+	
+
 func perform_shoot():
 	if !player.fp_camera.auto_anim.is_playing():
 		player.fp_camera.auto_anim.play("Shoot")
-		instance = bullet_trail.instantiate()
+		instance = current_weapon.bullet_trail.instantiate()
 		if player.fp_camera.aim_ray.is_colliding():
-			instance.init(player.fp_camera.auto_barrel.global_position, player.fp_camera.aim_ray.get_collision_point())
+			instance.init(player.fp_camera.auto_barrel.global_position,
+			 player.fp_camera.aim_ray.get_collision_point())
 			player.get_parent().add_child(instance)
 			if player.fp_camera.aim_ray.get_collider().is_in_group("enemy"):
 				player.fp_camera.aim_ray.get_collider().hit()
-				instance.trigger_particles(player.fp_camera.aim_ray.get_collision_point(), player.fp_camera.auto_barrel.global_position, true)
+				instance.trigger_particles(player.fp_camera.aim_ray.get_collision_point(),
+				 player.fp_camera.auto_barrel.global_position, true)
 			else:
-				instance.trigger_particles(player.fp_camera.aim_ray.get_collision_point(), player.fp_camera.auto_barrel.global_position, false)
+				instance.trigger_particles(player.fp_camera.aim_ray.get_collision_point(), 
+				player.fp_camera.auto_barrel.global_position, false)
 	else:
 		print(player.fp_camera.auto_barrel.global_position)
 		print(player.fp_camera.aim_ray_end.global_position)
-		instance.init(player.fp_camera.auto_barrel.global_position, player.fp_camera.aim_ray_end.global_position)
+		instance.init(player.fp_camera.auto_barrel.global_position, 
+		player.fp_camera.aim_ray_end.global_position)
 		player.get_parent().add_child(instance)
 
 # Modified shoot function
 func shoot(is_auto: bool):
 	if is_reloading:
 		return
-	if ammo_left_in_mag <= 0:
+	if current_weapon.ammo_left_in_mag <= 0:
 		reload()
 		return
 	if is_auto and time_since_last_shot < fire_rate:
 		return
 
 	time_since_last_shot = 0.0
-	ammo_left_in_mag -= 1
+	current_weapon.ammo_left_in_mag -= 1
 	perform_shoot()  # Call the new function with appropriate mode
 
 # Modified secondary shoot function
@@ -181,8 +214,8 @@ func secondary_shoot(is_auto: bool, cost: int):
 
 func reload():
 	is_reloading = true
-	await get_tree().create_timer(reload_time).timeout
-	ammo_left_in_mag = mag_size
+	await get_tree().create_timer(current_weapon.reload_time).timeout
+	current_weapon.ammo_left_in_mag = current_weapon.mag_size
 	is_reloading = false
 	
 
@@ -269,14 +302,14 @@ func reload():
 #		else:
 #			Animation_Player.queue(Current_Weapon.Out_Of_Ammo_Anim)
 
-func Calculate_Reload():
-	var Reload_Amount = min(Current_Weapon.Magazine-Current_Weapon.Current_Ammo,Current_Weapon.Magazine,Current_Weapon.Reserve_Ammo)
-
-	Current_Weapon.Current_Ammo = Current_Weapon.Current_Ammo+Reload_Amount
-	Current_Weapon.Reserve_Ammo = Current_Weapon.Reserve_Ammo-Reload_Amount
-	Current_Weapon.Spray_Count_Update()
-	
-	Update_Ammo.emit([Current_Weapon.Current_Ammo, Current_Weapon.Reserve_Ammo])
+#func Calculate_Reload():
+#	var Reload_Amount = min(Current_Weapon.Magazine-Current_Weapon.Current_Ammo,Current_Weapon.Magazine,Current_Weapon.Reserve_Ammo)
+#
+#	Current_Weapon.Current_Ammo = Current_Weapon.Current_Ammo+Reload_Amount
+#	Current_Weapon.Reserve_Ammo = Current_Weapon.Reserve_Ammo-Reload_Amount
+#	Current_Weapon.Spray_Count_Update()
+#
+#	Update_Ammo.emit([Current_Weapon.Current_Ammo, Current_Weapon.Reserve_Ammo])
 
 
 #func melee():
